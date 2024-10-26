@@ -24,7 +24,7 @@ def key_press(event):
 
 w = Tk()
 w.title('Танки на минималках 2.0')
-canv = Canvas(w, width = 1200, height = 1200, bg = 'alice blue')
+canv = Canvas(w, width = 800, height = 600, bg = 'alice blue')
 canv.pack()
 player = Tank(canvas = canv, x = 100, y = 50, ammo = 100)
 
