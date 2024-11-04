@@ -15,7 +15,7 @@ class Tank:
         self.__skin_down = PhotoImage(file=file_down)
         self.__skin_right = PhotoImage(file=file_right)
         self.__skin_left = PhotoImage(file=file_left)
-        self.__hitbox = Hitbox(x, y, self.get_size(), self.get_size(), padding = 1)
+        self.__hitbox = Hitbox(x, y, self.get_size(), self.get_size(), padding = -2)
         Tank.__count += 1
         self.__canvas = canvas
         self.__fuel = 10000
