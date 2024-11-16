@@ -20,15 +20,7 @@ def update():
     tanks_collection.update()
     player = tanks_collection.get_player()
     world.set_camera_xy(player.get_x() - world.SCREEN_WIDTH // 2 + player.get_size() // 2, player.get_y() - world.SCREEN_HEIGHT // 2 + player.get_size() // 2)
-    #player.update()
-    #enemy.update()
-    #n.update()
-    #check_collishion()
     w.after(1000//FPS, update)
-
-#def check_collishion():
-#    player.intersects(enemy)
-#    enemy.intersects(player)
 
 def key_press(event):
     player = tanks_collection.get_player()
@@ -51,7 +43,6 @@ def key_press(event):
 
     elif event.keycode == 32:
         tanks_collection.spawn_enemy()
-#    check_collishion()
 
 def load_textures():
     texture.load('file_up', '../img/Tank Up.png')
@@ -67,11 +58,6 @@ load_textures()
 w.title('Танки на минималках 2.0')
 canv = Canvas(w, width = world.SCREEN_WIDTH, height = world.SCREEN_HEIGHT, bg="alice blue")
 canv.pack()
-#player = Tank(canvas = canv, x = 100, y = 50, ammo = 100, speed = 1, bot = False)
-#enemy = Tank(canvas = canv, x = 300, y = 300, ammo = 100, speed = 1, bot = True)
-#n = Tank(canvas = canv, x = 500, y = 300, ammo = 100, speed = 1, bot = False)
-#n.stop()
-#enemy.set_target(player)
 
 tanks_collection.initialze(canv)
 

@@ -7,15 +7,10 @@ import texture as skin
 class Tank:
 
     __count = 0
-    #__SIZE = 100
 
     def __init__(self, canvas, x, y, model = 'Т-14 Армата', ammo = 100, speed = 10, bot = True):
         self.__bot = bot
         self.__target = None
-        #self.__skin_up = PhotoImage(file=file_up)
-        #self.__skin_down = PhotoImage(file=file_down)
-        #self.__skin_right = PhotoImage(file=file_right)
-        #self.__skin_left = PhotoImage(file=file_left)
         self.__hitbox = Hitbox(x, y, self.get_size(), self.get_size(), padding = -2)
         Tank.__count += 1
         self.__canvas = canvas
@@ -94,28 +89,24 @@ class Tank:
         self.__vx = 0
         self.__vy = -1
         self.__canvas.itemconfig(self.__id, image = skin.get('file_up'))
-        #self.__repaint()
         print('Ход вверх')
 
     def backward(self):
         self.__vx = 0
         self.__vy = 1
         self.__canvas.itemconfig(self.__id, image = skin.get('file_down'))
-        #self.__repaint()
         print('Ход вниз')
 
     def left(self):
         self.__vy = 0
         self.__vx = -1
         self.__canvas.itemconfig(self.__id, image = skin.get('file_left'))
-        #self.__repaint()
         print('Ход влево')
 
     def right(self):
         self.__vy = 0
         self.__vx = 1
         self.__canvas.itemconfig(self.__id, image = skin.get('file_right'))
-        #self.__repaint()
         print("Ход вправо")
 
     def stop(self):
