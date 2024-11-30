@@ -49,6 +49,9 @@ def load_textures():
     texture.load('file_down', '../img/Tank Down.png')
     texture.load('file_left', '../img/Tank Left.png')
     texture.load('file_right', '../img/Tank Right.png')
+    texture.load(world.BRICK, '../img/brick.png')
+    texture.load(world.WATER, '../img/water.png')
+    texture.load(world.CONCRETE, '../img/wall.png')
     print(texture._frames)
 
 w = Tk()
@@ -56,8 +59,10 @@ w = Tk()
 load_textures()
 
 w.title('Танки на минималках 2.0')
-canv = Canvas(w, width = world.SCREEN_WIDTH, height = world.SCREEN_HEIGHT, bg="alice blue")
+canv = Canvas(w, width = world.SCREEN_WIDTH, height = world.SCREEN_HEIGHT, bg="ForestGreen")
 canv.pack()
+
+world.initialize(canv)
 
 tanks_collection.initialze(canv)
 
