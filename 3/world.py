@@ -80,7 +80,7 @@ def update_map():
 def update_cell(row, col):
     if row < 0 or col < 0 or row >= get_rows() or col >= get_cols():
         return
-    _map[row][col].update
+    _map[row][col].update()
 
 class _Cell:
     def __init__(self, canvas, block, x, y):
