@@ -17,6 +17,14 @@ SCREEN_HEIGHT = 800
 _canvas = None
 _map = []
 
+AIR = 'a'
+
+def get_block(row, col):
+    if row < 0 or col < 0 or row >= get_rows() or col >= get_cols():
+        return AIR
+    else:
+        return _map[row][col].get_block()
+
 def create_map(rows = 20, cols = 20):
     global _map
     _map = []
@@ -31,6 +39,12 @@ def create_map(rows = 20, cols = 20):
             cell = _Cell(_canvas, block, j * BLOCK_SIZE, i * BLOCK_SIZE)
             row.append(cell)
         _map.append(row)
+
+def get_col(x):
+    return int(x) // BLOCK_SIZE
+
+def get_row(y):
+    return int(y) // BLOCK_SIZE
 
 def get_rows():
     return len(_map)
@@ -73,8 +87,12 @@ def get_screen_y(world_Y):
     return world_Y - _camera_y
 
 def update_map():
-    for i in range(0, get_rows()):
-        for j in range(0, get_cols()):
+    first_row = get_row(_camera_y)
+    last_row = get_row(_camera_y + SCREEN_HEIGHT - 1)
+    first_col = get_col(_camera_x)
+    last_col = get_col(_camera_x + SCREEN_WIDTH - 1)
+    for i in range(first_row, last_row + 1):
+        for j in range(first_col, last_col + 1):
             update_cell(i, j)
 
 def update_cell(row, col):
@@ -86,6 +104,8 @@ class _Cell:
     def __init__(self, canvas, block, x, y):
         self.__canvas = canvas
         self.__block = block
+        self.__screen_x = get_screen_x(x)
+        self.__screen_y = get_screen_y(y)
         self.__x = x
         self.__y = y
         self.__create_element(block)
@@ -95,11 +115,15 @@ class _Cell:
             return
         screen_x = get_screen_x(self.__x)
         screen_y = get_screen_y(self.__y)
+        if self.__screen_x == screen_x and self.__screen_y == screen_y:
+            return
         self.__canvas.moveto(self.__id, x = screen_x, y = screen_y)
+        self.__screen_x = screen_x
+        self.__screen_y = screen_y
 
     def __create_element(self, block):
         if block != GROUND:
-            self.__id = self.__canvas.create_image(self.__x, self.__y, image = texture.get(block), anchor = NW)
+            self.__id = self.__canvas.create_image(self.__screen_x, self.__screen_y, image = texture.get(block), anchor = NW)
 
     def __del__(self):
         try:

@@ -11,10 +11,10 @@ class Tank:
     def __init__(self, canvas, x, y, model = 'Т-14 Армата', ammo = 100, speed = 10, bot = True):
         self.__bot = bot
         self.__target = None
-        self.__hitbox = Hitbox(x, y, self.get_size(), self.get_size(), padding = -2)
+        self.__hitbox = Hitbox(x, y, self.get_size(), self.get_size(), padding = 1)
         Tank.__count += 1
         self.__canvas = canvas
-        self.__fuel = 10000
+        self.__fuel = 1000000
         self.__speed = speed
         self.__model = model
         self.__xp = 0
@@ -33,6 +33,13 @@ class Tank:
 
         self.__create()
         self.right()
+
+    def __check_map_collision(self):
+        result = self.__hitbox.check_map_collision()
+        if result:
+            self.__undo_move()
+            if self.__bot:
+                self.__AI_change_orientation()
 
     def __check_out_of_world(self):
         if self.__hitbox.left < 0 or \
@@ -124,6 +131,7 @@ class Tank:
             self.__fuel -= self.__speed
             self.__update_hitbox()
             self.__check_out_of_world()
+            self.__check_map_collision()
             self.__repaint()
 
     def __create(self):
