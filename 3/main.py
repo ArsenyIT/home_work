@@ -53,6 +53,7 @@ def load_textures():
     texture.load(world.BRICK, '../img/brick.png')
     texture.load(world.WATER, '../img/water.png')
     texture.load(world.CONCRETE, '../img/wall.png')
+    texture.load(world.MESSLE, '../img/Bonus.png')
     print(texture._frames)
 
 w = Tk()
