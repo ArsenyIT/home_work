@@ -4,8 +4,11 @@ from hitbox import Hitbox
 from tkinter import NW
 from random import randint
 
+import missile_collection
+
 class Unit:
     def __init__(self, canvas, x, y, speed, padding, bot, default_image):
+        self._destroyed = False
         self._canvas = canvas
         self._speed = speed
         self._x = x
@@ -24,6 +27,14 @@ class Unit:
         self._hp = 100
 
         self._create()
+
+    def is_destroyed(self):
+        return self._destroyed
+
+    def destroy(self):
+        self._destroyed = True
+        self.stop()
+        self._speed = 0
 
     def _create(self):
         self._id = self._canvas.create_image(self._x, self._y, image = skin.get(self._default_image), anchor = NW)
@@ -150,7 +161,7 @@ class Unit:
 
 class Tank(Unit):
     def __init__(self, canvas, row, col, bot = True):
-        super().__init__(canvas, col * world.BLOCK_SIZE, row * world.BLOCK_SIZE, 2, 1, bot, 'tank_up')
+        super().__init__(canvas, col * world.BLOCK_SIZE, row * world.BLOCK_SIZE, 2, 8, bot, 'tank_up')
         if bot:
             self._left_image = 'tank_left'
             self._right_image = 'tank_right'
@@ -192,6 +203,7 @@ class Tank(Unit):
     def fire(self):
         if self._ammo > 0:
             self._ammo -= 1
+            missile_collection.fire(self)
 
     def _take_ammo(self):
         self._ammo += 10
@@ -226,3 +238,37 @@ class Tank(Unit):
         super()._on_intersect(other_unit)
         if self._bot:
             self._change_orientation()
+
+class Missile(Unit):
+    def __init__(self, canvas, owner):
+        super().__init__(canvas, owner.get_x(), owner.get_y(), 6, 20, False, 'missile_up')
+        self._owner = owner
+        self._forward_image = 'missile_up'
+        self._backward_image = 'missile_down'
+        self._left_image = 'missile_left'
+        self._right_image = 'missile_right'
+
+        if owner.get_vx() == 1 and owner.get_vy() == 0:
+            self.right()
+        if owner.get_vx() == -1 and owner.get_vy() == 0:
+            self.left()
+        if owner.get_vx() == 0 and owner.get_vy() == -1:
+            self.forvard()
+        if owner.get_vx() == 0 and owner.get_vy() == 1:
+            self.backward()
+        self._x += owner.get_vx() * self.get_size() // 2
+        self._y += owner.get_vy() * self.get_size() // 2
+
+        self._hitbox.set_blacklist([world.CONCRETE, world.BRICK])
+
+    def _on_map_collision(self, details):
+        if world.BRICK in details:
+            row = details[world.BRICK]['row']
+            col = details[world.BRICK]['col']
+            world.destroy(row, col)
+            self.destroy()
+        if world.CONCRETE in details:
+            self.destroy()
+
+    def get_owner(self):
+        return self._owner
