@@ -41,7 +41,7 @@ def update():
     _update_screen_text()
     start = len(_tanks) - 1
     for i in range(start, -1, -1):
-        if _tanks[i].is_destroyed():
+        if _tanks[i].is_destroyed() and i != 0:
             del _tanks[i]
         else:
             _tanks[i].update()

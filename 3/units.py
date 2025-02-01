@@ -194,7 +194,7 @@ class Tank(Unit):
          center_y = self.get_y() + self.get_size()//2
 
          target_center_x = self._target.get_x() + self._target.get_size()//2
-         target_center_y = self._target.get_y() + self._target.get_size() // 2
+         target_center_y = self._target.get_y() + self._target.get_size()//2
 
          row = world.get_row(center_y)
          col = world.get_col(center_x)
