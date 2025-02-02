@@ -166,7 +166,7 @@ class Unit:
 
 class Tank(Unit):
     def __init__(self, canvas, row, col, bot = True):
-        super().__init__(canvas, col * world.BLOCK_SIZE, row * world.BLOCK_SIZE, 2, 8, bot, 'tank_up')
+        super().__init__(canvas, col * world.BLOCK_SIZE, row * world.BLOCK_SIZE, 4, 8, bot, 'tank_up')
         if bot:
             self._left_image = 'tank_left'
             self._right_image = 'tank_right'

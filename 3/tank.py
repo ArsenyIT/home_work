@@ -184,7 +184,6 @@ class Tank:
                 self.__AI_change_orientation()
         return value
 
-
     def get_x(self):
         return self.__x
 

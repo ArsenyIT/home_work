@@ -39,7 +39,7 @@ def get_block(row, col):
         return _map[row][col].get_block()
     return AIR
 
-def create_map(rows = 20, cols = 20):
+def create_map(rows = 50, cols = 50):
     global _map
     _map = []
     for i in range(rows):
@@ -48,7 +48,7 @@ def create_map(rows = 20, cols = 20):
             block = GROUND
             if i == 0 or j == 0 or i == rows - 1 or j == cols - 1:
                 block = CONCRETE
-            elif randint(1, 100) <= 15:
+            elif randint(1, 100) <= 25:
                 block = choice([BRICK, WATER, CONCRETE, MESSLE])
             cell = _Cell(_canvas, block, j * BLOCK_SIZE, i * BLOCK_SIZE)
             row.append(cell)
@@ -75,7 +75,7 @@ def get_height():
 def initialize(canv):
     global _canvas, _map
     _canvas = canv
-    create_map(25, 25)
+    create_map(50, 50)
     #load_map('../map/1.tmap.txt')
     #load_map('../map/3.tmap.txt')
     #load_map('../map/4.tmap.txt')

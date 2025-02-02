@@ -14,12 +14,25 @@ def initialze(canv):
     _canvas = canv
 
     player = spawn(False)
-    enemy = spawn(True).set_target(player)
+    #enemy = spawn(True).set_target(player)
+    #enemy = spawn(True).set_target(player)
+    #enemy = spawn(True).set_target(player)
+    #enemy = spawn(True).set_target(player)
     spawn(True).set_target(player)
 
-    id_screen_text = _canvas.create_text(10, 10, text = _get_screen_text(), font = ('TkDefaultFont', 20), fill = 'white', anchor = NW)
+    id_screen_text = _canvas.create_text(10, 10, text = _get_screen_text(), font = ('TkDefaultFont', 20), fill = _get_color(), anchor = NW)
 
     print(_tanks)
+
+def _update_color():
+    _canvas.itemconfig(id_screen_text, fill = _get_color())
+
+def _get_color():
+    if get_player().is_destroyed():
+        return 'red'
+    if len(_tanks) == 1:
+        return 'yellow'
+    return 'white'.format(len(_tanks) - 1)
 
 def _update_screen_text():
     _canvas.itemconfig(id_screen_text, text = _get_screen_text())
