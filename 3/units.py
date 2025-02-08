@@ -68,22 +68,21 @@ class Unit:
     def right(self):
         self._vy = 0
         self._vx = 1
-        self._canvas.itemconfig(self._id, image = skin.get(self._right_image))
 
     def stop(self):
         self._vx = 0
         self._vy = 0
 
     def update(self):
-        if self._bot:
-            self._AI()
-        self._dx =self._vx * self._speed
-        self._dy = self._vy * self._speed
-        self._x += self._dx
-        self._y += self._dy
-        self._update_hitbox()
-        self._check_map_collision()
-        self._repaint()
+            if self._bot:
+                self._AI()
+            self._dx = self._vx * self._speed
+            self._dy = self._vy * self._speed
+            self._x += self._dx
+            self._y += self._dy
+            self._update_hitbox()
+            self._check_map_collision()
+            self._repaint()
 
     def _AI(self):
         pass
@@ -182,6 +181,11 @@ class Tank(Unit):
         self._usual_speed = self._speed
         self._water_speed = self._speed // 2
         self._target = None
+        self._fuel = 25
+
+    def update_fuel(self):
+        if self._fuel >= self._speed:
+            self._fuel -= self._speed * 0.1
 
     def set_target(self, target):
         self._target = target

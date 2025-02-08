@@ -154,7 +154,7 @@ class Tank:
         self.__vy = 0
 
     def update(self):
-        if  self.__fuel >= self.__speed:
+        if self.__fuel >= self.__speed:
             if self.__bot:
                 self.__AI()
             self.__dx = self.__vx * self.__speed
