@@ -186,6 +186,7 @@ class Tank(Unit):
     def update_fuel(self):
         if self._fuel >= self._speed:
             self._fuel -= self._speed * 0.1
+            self.update_fuel()
 
     def set_target(self, target):
         self._target = target
