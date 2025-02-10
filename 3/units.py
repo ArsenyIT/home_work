@@ -7,7 +7,7 @@ from random import randint
 import missile_collection
 
 class Unit:
-    def __init__(self, canvas, x, y, speed, padding, bot, default_image):
+    def __init__(self, canvas, x, y, speed, padding, fuel, bot, default_image):
         self._destroyed = False
         self._canvas = canvas
         self._speed = speed
@@ -18,6 +18,7 @@ class Unit:
         self._dx = 0
         self._dy = 0
         self._bot = bot
+        self._fuel = fuel
         self._hitbox = Hitbox(x, y, world.BLOCK_SIZE, world.BLOCK_SIZE, padding = padding)
         self._default_image = default_image
         self._left_image = default_image
@@ -68,18 +69,21 @@ class Unit:
     def right(self):
         self._vy = 0
         self._vx = 1
+        self._canvas.itemconfig(self._id, image=skin.get(self._right_image))
 
     def stop(self):
         self._vx = 0
         self._vy = 0
 
     def update(self):
+        if self._fuel >= self._speed:
             if self._bot:
                 self._AI()
             self._dx = self._vx * self._speed
             self._dy = self._vy * self._speed
             self._x += self._dx
             self._y += self._dy
+            self._fuel -= self._speed * 0.1
             self._update_hitbox()
             self._check_map_collision()
             self._repaint()
@@ -165,7 +169,7 @@ class Unit:
 
 class Tank(Unit):
     def __init__(self, canvas, row, col, bot = True):
-        super().__init__(canvas, col * world.BLOCK_SIZE, row * world.BLOCK_SIZE, 4, 8, bot, 'tank_up')
+        super().__init__(canvas, col * world.BLOCK_SIZE, row * world.BLOCK_SIZE, 4, 8, 500, bot, 'tank_up')
         if bot:
             self._left_image = 'tank_left'
             self._right_image = 'tank_right'
@@ -181,12 +185,14 @@ class Tank(Unit):
         self._usual_speed = self._speed
         self._water_speed = self._speed // 2
         self._target = None
-        self._fuel = 25
 
-    def update_fuel(self):
-        if self._fuel >= self._speed:
-            self._fuel -= self._speed * 0.1
-            self.update_fuel()
+    def _take_fuel(self):
+        self._fuel += 100
+        if self._fuel > 10000:
+            self._fuel = 10000
+
+    def get_fuel(self):
+        return self._fuel
 
     def set_target(self, target):
         self._target = target
@@ -272,6 +278,10 @@ class Tank(Unit):
             pos = details[world.MESSLE]
             if world.take(pos['row'], pos['col']) != world.AIR:
                 self._take_ammo()
+        elif world.PETROL1 in details:
+            pos = details[world.PETROL1]
+            if world.take(pos['row'], pos['col']) != world.AIR:
+                self._take_fuel()
         else:
             self._undo_move()
             if self._bot:
@@ -287,7 +297,7 @@ class Tank(Unit):
 
 class Missile(Unit):
     def __init__(self, canvas, owner):
-        super().__init__(canvas, owner.get_x(), owner.get_y(), 6, 20, False, 'missile_up')
+        super().__init__(canvas, owner.get_x(), owner.get_y(), 6, 20, 100000000000, False, 'missile_up')
         self._owner = owner
         self._forward_image = 'missile_up'
         self._backward_image = 'missile_down'

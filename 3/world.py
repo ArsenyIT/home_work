@@ -7,6 +7,7 @@ WATER = 'w'
 CONCRETE = 'c'
 BRICK = 'b'
 MESSLE = 'm'
+PETROL1 = 'p1'
 
 BLOCK_SIZE = 64
 
@@ -49,7 +50,7 @@ def create_map(rows = 50, cols = 50):
             if i == 0 or j == 0 or i == rows - 1 or j == cols - 1:
                 block = CONCRETE
             elif randint(1, 100) <= 25:
-                block = choice([BRICK, WATER, CONCRETE, MESSLE])
+                block = choice([BRICK, WATER, CONCRETE, MESSLE, PETROL1])
             cell = _Cell(_canvas, block, j * BLOCK_SIZE, i * BLOCK_SIZE)
             row.append(cell)
         _map.append(row)
@@ -157,7 +158,7 @@ class _Cell:
 
     def take(self):
         block = self.get_block()
-        if block == MESSLE:
+        if block == MESSLE or block == PETROL1:
             self.set_block(GROUND)
             return block
         else:
