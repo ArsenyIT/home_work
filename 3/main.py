@@ -4,6 +4,7 @@ from tkinter import*
 import world
 import tanks_collection
 import texture
+from playsound import playsound
 
 KEY_UP = 38
 KEY_DOWN = 40
@@ -65,8 +66,8 @@ def load_textures():
     texture.load(world.BRICK, '../img/brick.png')
     texture.load(world.WATER, '../img/water.png')
     texture.load(world.CONCRETE, '../img/wall.png')
-    texture.load(world.MESSLE, '../img/Bonus.png')
-    texture.load(world.PETROL1, '../img/bonus_petrol_1.png')
+    texture.load(world.MESSLE, '../img/Bonus_Ammo.png')
+    texture.load(world.PETROL1, '../img/Bonus_Petrol.png')
 
     texture.load('missile_up', '../img/missile_up.png')
     texture.load('missile_down', '../img/missile_down.png')
