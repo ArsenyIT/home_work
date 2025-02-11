@@ -6,7 +6,7 @@ class Hitbox:
         self.__y = y
         self.__set_width(width)
         self.__set_height(height)
-        self.__black_list = [world.CONCRETE, world.WATER, world.BRICK, world.MESSLE, world.PETROL1]
+        self.__black_list = [world.CONCRETE, world.WATER, world.BRICK, world.MESSLE, world.PETROL]
 
     def set_blacklist(self, black_list):
         self.__black_list = black_list

@@ -1,3 +1,5 @@
+import random
+
 import texture
 from tkinter import NW
 from random import randint, choice
@@ -7,7 +9,7 @@ WATER = 'w'
 CONCRETE = 'c'
 BRICK = 'b'
 MESSLE = 'm'
-PETROL1 = 'p1'
+PETROL = 'p'
 
 BLOCK_SIZE = 64
 
@@ -50,7 +52,7 @@ def create_map(rows = 50, cols = 50):
             if i == 0 or j == 0 or i == rows - 1 or j == cols - 1:
                 block = CONCRETE
             elif randint(1, 100) <= 25:
-                block = choice([BRICK, WATER, CONCRETE, MESSLE, PETROL1])
+                block = choice([BRICK, WATER, CONCRETE, MESSLE, PETROL])
             cell = _Cell(_canvas, block, j * BLOCK_SIZE, i * BLOCK_SIZE)
             row.append(cell)
         _map.append(row)
@@ -76,10 +78,15 @@ def get_height():
 def initialize(canv):
     global _canvas, _map
     _canvas = canv
-    create_map(50, 50)
-    #load_map('../map/1.tmap.txt')
-    #load_map('../map/3.tmap.txt')
-    #load_map('../map/4.tmap.txt')
+    rmap = random.randint(1, 4)
+    if rmap == 1:
+        load_map('../map/5.tmap.txt')
+    elif rmap == 2:
+        load_map('../map/6.tmap.txt')
+    elif rmap == 3:
+        load_map('../map/7.tmap.txt')
+    else:
+       create_map(50, 50)
 
 def set_camera_xy(x, y):
     global _camera_x, _camera_y
@@ -158,7 +165,7 @@ class _Cell:
 
     def take(self):
         block = self.get_block()
-        if block == MESSLE or block == PETROL1:
+        if block == MESSLE or block == PETROL:
             self.set_block(GROUND)
             return block
         else:

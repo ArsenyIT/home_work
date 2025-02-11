@@ -278,8 +278,8 @@ class Tank(Unit):
             pos = details[world.MESSLE]
             if world.take(pos['row'], pos['col']) != world.AIR:
                 self._take_ammo()
-        elif world.PETROL1 in details:
-            pos = details[world.PETROL1]
+        elif world.PETROL in details:
+            pos = details[world.PETROL]
             if world.take(pos['row'], pos['col']) != world.AIR:
                 self._take_fuel()
         else:
