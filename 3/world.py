@@ -84,9 +84,9 @@ def initialize(canv):
     elif rmap == 2:
         load_map('../map/6.tmap.txt')
     elif rmap == 3:
-        load_map('../map/7.tmap.txt')
-    else:
-       create_map(50, 50)
+        create_map(50, 50)
+    #else:
+    #   load_map('../map/7.tmap.txt')
 
 def set_camera_xy(x, y):
     global _camera_x, _camera_y
