@@ -73,6 +73,13 @@ def load_textures():
     texture.load('missile_down', '../img/missile_down.png')
     texture.load('missile_left', '../img/missile_left.png')
     texture.load('missile_right', '../img/missile_right.png')
+
+    texture.load('0_hp', '../img/0.png')
+    texture.load('20_hp', '../img/20.png')
+    texture.load('40_hp', '../img/40.png')
+    texture.load('60_hp', '../img/60.png')
+    texture.load('80_hp', '../img/80.png')
+    texture.load('100_hp', '../img/100.png')
     print(texture._frames)
 
 w = Tk()
