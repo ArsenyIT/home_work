@@ -25,6 +25,7 @@ class Unit:
         self._right_image = default_image
         self._forward_image = default_image
         self._backward_image = default_image
+        self._tank_destroy = 'destroy'
         self._hp = 100
 
         self._create()
@@ -33,6 +34,7 @@ class Unit:
         self._hp -= value
         if self._hp <= 0:
             self.destroy()
+            self._canvas.itemconfig(self._id, image=skin.get(self._tank_destroy))
 
     def is_destroyed(self):
         return self._destroyed

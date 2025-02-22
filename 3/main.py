@@ -79,6 +79,8 @@ def load_textures():
     texture.load('60_hp', '../img/60.png')
     texture.load('80_hp', '../img/80.png')
     texture.load('100_hp', '../img/100.png')
+
+    texture.load('destroy', '../img/tank_destroy.png')
     print(texture._frames)
 
 w = Tk()

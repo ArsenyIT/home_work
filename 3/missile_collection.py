@@ -26,4 +26,5 @@ def check_missiles_collision(tank):
             missile.destroy()
             tank.damage(20)
 
+
             return
