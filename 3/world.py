@@ -51,7 +51,7 @@ def create_map(rows = 50, cols = 50):
             block = GROUND
             if i == 0 or j == 0 or i == rows - 1 or j == cols - 1:
                 block = CONCRETE
-            elif randint(1, 100) <= 25:
+            elif randint(1, 100) <= 30:
                 block = choice([BRICK, WATER, CONCRETE, MESSLE, PETROL])
             cell = _Cell(_canvas, block, j * BLOCK_SIZE, i * BLOCK_SIZE)
             row.append(cell)

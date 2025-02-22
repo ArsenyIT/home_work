@@ -4,7 +4,6 @@ from tkinter import*
 import world
 import tanks_collection
 import texture
-from playsound import playsound
 
 KEY_UP = 38
 KEY_DOWN = 40
