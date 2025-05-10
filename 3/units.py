@@ -330,26 +330,3 @@ class Missile(Unit):
 
     def get_owner(self):
         return self._owner
-
-class Hp_Bar():
-    def __init__(self, canvas, x, y):
-        self._canvas = canvas
-        self._x = x
-        self._y = y
-        self._dx = 0
-        self._dy = 0
-        self._vx = 0
-        self._vy = 0
-        self._hp_x = 0
-        self._hp_y = 0
-        self._0_hp_image = '0_hp'
-        self._20_hp_image = '20_hp'
-        self._40_hp_image = '40_hp'
-        self._60_hp_image = '60_hp'
-        self._80_hp_image = '80_hp'
-        self._100_hp_image = '100_hp'
-
-    def _create(self):
-        self._id = self._canvas.create_image(self._x, self._y, image = skin.get(self._0_hp_image), anchor = NW)
-
-    #def set_hp_xy(self):
